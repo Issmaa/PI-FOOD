@@ -1,0 +1,23 @@
+.container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+ }
+  .spinLoading{
+     height: 70px;
+    width: 70px;
+    border: 6px solid #3FC1C936;
+    display: inline-block;
+    border-radius: 50%;
+    border-top-color: #2351FF;
+    animation-duration: 0.9s;
+    animation-name: spin;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes spin {
+    to{
+      transform: rotate(360deg);
+    }
+  }

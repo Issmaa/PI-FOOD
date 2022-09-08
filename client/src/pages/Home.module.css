@@ -1,0 +1,27 @@
+/* .globalHome{
+    background-image: url('../images/backHome1.jpg');
+    background-size: cover;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+} */
+.divBtnCreate{
+    height: auto;
+    margin:  0 0 10px 0;
+}
+
+.btnCreate{
+    width: 100%;
+    height: 50px;
+    border-style: none;
+    font-size: 1.5em;
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;
+    background-color: #D6CDA4;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.btnCreate:hover{
+    border: 1px solid black;
+    color: #222;
+}

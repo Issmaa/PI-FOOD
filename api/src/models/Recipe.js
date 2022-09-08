@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
     },
     analyzedInstructions:{
-      type: DataTypes.JSON,
+      type: DataTypes.STRING,
     }    
   },{
     timestamps: false

@@ -2,17 +2,17 @@ const {Diet} = require('../db.js');
 
 function allDiets(){
     Diet.bulkCreate([
-        {name: "Gluten Free"},
-        {name: "Vegetarian"}, 
-        {name: "Ketogenic"}, 
-        {name:"Lacto-Vegetarian"}, 
-        {name:"Ovo-Vegetarian"},
-        {name: "Vegan"}, 
-        {name: "Pescetarian"}, 
-        {name: "Paleo"}, 
-        {name: "Primal"},
-        {name: "Low FODMAP"},
-        {name: "Whole30"}])
+        {name: "gluten free"},
+        {name: "vegetarian"}, 
+        {name: "ketogenic"}, 
+        {name:"lacto ovo vegetarian"},
+        {name: "vegan"}, 
+        {name: "pescetarian"}, 
+        {name: "paleolithic"}, 
+        {name: "primal"},
+        {name: "low FODMAP"},
+        {name: "dairy free"},
+        {name: "whole 30"}])
     .then(() => console.log("Dietas cargadas"))
     .catch(error => (`no se crearon las dietas en la base de datos ${error}`))
 }

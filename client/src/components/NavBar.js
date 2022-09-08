@@ -1,63 +1,69 @@
 import { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import s from './NavBar.module.css';
-import {getDiets} from '../redux/actions.js';
+import {getDiets, recipeAToZ,recipeZToA,tiposDiets,HealthAsc,HealthDesc,fromDataBase,fromApi} from '../redux/actions.js';
 
-function NavBar({onSearchChange,search, handlerChange, handlerSelectFilter, handlerSelectFrom, aToZ,filtroAttackAsc,menorSetentaFilter}) {
+function NavBar({ search, setSearch,handleSearch}) {
   
     const dispatch = useDispatch();
-    const types = useSelector(state => state.diets);
+    const diets = useSelector(state => state.diets);
  
+
     useEffect(() => {
        dispatch(getDiets())
     }, [dispatch])
 
+    function handlerTipos(e){
+      dispatch(tiposDiets(e.target.value))
+    }
     return (
         <nav className={s.nav}>
-      {/* Nombre de la pagina */}
       <a 
          href='/home' 
-         className={s.siteName}>RecipesWorldFood</a>
+         className={s.siteName}>Nóstimo</a>
 
-      {/* Buscador de pokemons */}
+      {/* Buscador */}
+      <div className={s.inputNavBar}>
+      <form onSubmit={(e) => handleSearch(e)}>
       <input 
-         className={s.inputNavBar} 
-         placeholder='Buscar...'
+         className={s.inputBar}
+         placeholder='Encuentra tu receta...'
          value={ search } 
-         onChange={ onSearchChange } >
-      </input>
-      <button onClick={handlerChange} className={s.btnSearch}>Buscar</button>
+         name= 'search'
+         onChange={e => setSearch(e.target.value)}
+          />
+         <button type={'submit'} className={s.btnSearch}>Buscar</button>
+      </form>    
+      </div>
 
       {/* Filtro de tipos */}
       <div>
-         <select onChange={handlerSelectFilter} className={s.filtroTipos}>
+         <select onChange={handlerTipos} className={s.filtroTipos}>
             <option value={''}> Tipos </option>
-            {types && types.map(e => {
+            {diets && diets.map(e => {
                return (<option key ={e.id} value={e.name}>{e.name}</option>)
                })
             }
          </select>
       </div>
-
-      <div>
-         <select onChange={handlerSelectFrom} className={s.filterFrom}>
-            <option value={''}>From </option>
-            <option value={'DataBase'}>DataBase</option>
-            <option value={'Api'}>Api</option>
-         </select>
-      </div>
-
-      
+      {/* Fitro orden alfabetico */}
       <div>
          <ul className={s.filterAlfa}>
-            <li><button onClick={aToZ} value={'aToZ'}> A-Z </button></li>
-            <li><button onClick={aToZ} value={'zToA'}> Z-A </button></li>
+            <li><button onClick={() => {dispatch(recipeAToZ())}} > A-Z </button></li>
+            <li><button onClick={() => {dispatch(recipeZToA())}} > Z-A </button></li>
          </ul>
       </div>
-      <div>
-         <ul className={s.btnAttack}> Attack
-            <li><button onClick={filtroAttackAsc} value={'filtroAttackAsc'}>Ascendant</button></li>
-            <li><button onClick={filtroAttackAsc} value={'filtroAttackDesc'}>Descendant</button></li>
+      {/* Filtro HealthScore*/}
+      <div className={s.divHealth}>
+         <ul className={s.btnHealthScore}> 
+            <li><button onClick={() => {dispatch(HealthAsc())}} > Less Healthy</button></li>
+            <li><button onClick={() => {dispatch(HealthDesc())}} >More Healthy</button></li>
+         </ul>
+      </div>
+      <div className={s.divHealth}>
+         <ul className={s.btnHealthScore}>
+            <li><button onClick={() => {dispatch(fromApi())}}>APi</button></li>
+            <li><button onClick={() => {dispatch(fromDataBase())}}>DataBase</button></li>
          </ul>
       </div>
    </nav>
@@ -65,3 +71,5 @@ function NavBar({onSearchChange,search, handlerChange, handlerSelectFilter, hand
 }
 
 export default NavBar
+
+
