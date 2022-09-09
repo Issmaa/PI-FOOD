@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import Card from './Card.js';
 import s from './Cards.module.css';
 import Loading from '../pages/Loading.js';

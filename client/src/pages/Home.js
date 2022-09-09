@@ -52,6 +52,7 @@ function handleSearch(event){
       search={search}
       setSearch={setSearch}
       handleSearch={handleSearch}
+      setCurrentPage={setCurrentPage}
       />
 
       <div className={c.divBtnCreate}>

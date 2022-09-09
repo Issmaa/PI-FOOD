@@ -7,13 +7,16 @@
     box-shadow: 10px 10px 12px -4px rgba(0,0,0,0.75);
  }
  .title {
-    font-size: 9vh;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    margin-top: 55px;
+    font-size: 2em;
+    font-family: 'Lato', sans-serif;
     margin-bottom: 35px;
-    background: #55E;
+    height: auto;
+    background: #1C6758;
     color: white;
     border-radius: 5px;
+    text-align: center;
+    padding: 0;
+    margin-top: 50px;
  }
  .btnBack{
     position: absolute;
@@ -22,17 +25,17 @@
     width: 65px;
     height: 65px;
     border-style: none;
-    border-radius: 50%;
+    border-radius: 10px;
     font-size: 18px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     cursor: pointer;
-    background: white;
+    background: #D6CDA4;
+    color: #FFF;
  }
  .btnBack:hover {
-    color: white;
-    background-color: #55E;
+   border: 1px solid black;
+   color: #222;
  }
- 
  .cardCreate form{
     display: flex;
     flex-wrap: wrap;
@@ -40,35 +43,76 @@
     padding: 16px;
     align-items: center;
  }
- 
- .input{
+ .label{
+   font-family: 'Lato', sans-serif;
+ }
+ .inputName{
     width: 51vh;
-    height: 12vh;
+    height: auto;
     display: flex;
     flex-direction: column;
+    text-transform: capitalize;
     align-items: flex-start;
     margin: 5px 20px 5px 20px;
  }
+
+.labelStyle{
+   font-family: 'Lato', sans-serif;
+}
  
- .input input{
+ .inputName input{
     width: 100%;
     height: 30px;
     border-style: none;
     border-radius: 5px;
     font-size: 16px;
  }
+ .inputSummary{
+   width: 51vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 5px 20px 5px 20px;
+ }
+ .inputSummary textarea{
+   width: 100%;
+    height: 20vh;
+    border-style: none;
+    border-radius: 5px;
+    font-size: 13px;
+    font-family: 'Lato', sans-serif;
+ }
+
+.inputInstructions{
+    width: 51vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 5px 20px 5px 20px;
+}
+.inputInstructions textarea {
+   width: 100%;
+   height: 15vh;
+   border-style: none;
+   border-radius: 5px;
+   font-size: 13px;
+   font-family: 'Lato', sans-serif;
+}
+ 
  .selectType{
     margin: 20px;
  }
  .selectType select{
-    font-size: 17px;
+    font-size: 15px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     width: 30vh;
     height: 40px;
     margin: 15px;
     text-align: center;
     /* border-style: none; */
-    border-color: blue;
+    border-color: #3D8361;
     border-radius: 5px;
  }
  
@@ -85,11 +129,14 @@
     font-size: 20px;
     padding: 0 5px 1px 5px;
  }
- 
+ .sumbitBtn{
+   position: relative;
+   top: 40px;
+   left: 150px;
+ }
  .submit{
-    position: absolute;
-    top: 82%;
-    left: 70%;
+   margin: 25px;
+   padding: 5px;
     width: 120px;
     height: 45px;
     border-style: none;
@@ -97,11 +144,11 @@
     font-size: 16px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     cursor: pointer;
-    background: #33C;
-    color: #EEE;
+    background: #D6CDA4;
+    color: #FFF;
  }
  
  .submit:hover{
-    color: white;
-    background-color: #55E;
+   border: 1px solid black;
+   color: #222;
  }

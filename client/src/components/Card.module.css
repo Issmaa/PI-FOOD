@@ -5,6 +5,7 @@
     flex-direction: row;
     margin: 8px 8px;
     border-radius: 10px;
+    overflow: hidden;
  }
  
  .cardContainer:hover{
@@ -34,6 +35,7 @@
     width: 260px;
     text-align: center;
     font-family: 'Nunito', sans-serif;
+    text-transform: capitalize;
  }
  h4{
    text-align: start;
@@ -49,6 +51,7 @@
     width: 100%;
     height: 100%;
     border-radius: 5px;
+    max-height: 200px;
  }
 .textContainer{
    display: flex;

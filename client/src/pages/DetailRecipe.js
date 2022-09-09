@@ -55,6 +55,7 @@ function DetailRecipe() {
               </>
               <h4>Ingredients:</h4>
               <div className={c.divIngredients}>
+                
               {detailRecipeR.analyzedInstructions[0] && detailRecipeR.analyzedInstructions[0].steps?.map(e => {
                 return (
                 <div className={c.divIngredients}>
@@ -70,20 +71,17 @@ function DetailRecipe() {
               </div>
               <h4>Instructions:</h4>
               <div>
-              {detailRecipeR.analyzedInstructions[0] && detailRecipeR.analyzedInstructions[0].steps?.map(e => {
+              {Array.isArray(detailRecipeR.analyzedInstructions) ? detailRecipeR.analyzedInstructions[0] && detailRecipeR.analyzedInstructions[0].steps?.map(e => {
                 return (
                 <div key={e.number}>
                   <h4>Step {e.number}</h4>
                   <p key={e.number} className={c.nameInfoSteps}>{e.step}</p>
                 </div>
                 )
-              }) 
+              }) : <div><p className={c.instructions}>{detailRecipeR.analyzedInstructions}</p></div>
               }
-              <div>
-                {}
               </div>
-              </div>
-              <p className={c.instructions}></p>
+              
            </div>
            </div>
         }
