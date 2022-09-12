@@ -4,19 +4,10 @@ import Home from './pages/Home.js';
 import LandingPage from './pages/LandingPage.js';
 import DetailRecipe from './pages/DetailRecipe';
 import CreateRecipe from './pages/CreateRecipe.js';
-import {useDispatch} from 'react-redux';
-import { useEffect} from 'react';
-import { getRecipes} from './redux/actions.js';
 
 
 function App() {
 
-  const dispatch = useDispatch();
-  
-  useEffect(() => {
-    dispatch(getRecipes());
-  },[dispatch])
- 
   return (
     <div>
       <Switch>
