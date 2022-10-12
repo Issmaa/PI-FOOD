@@ -6,7 +6,7 @@ function Card({id,name,image,diets}) {
   return (
     <div className={s.cardContainer}>
       <Link key={id} to={`/detail/${id}`} className={s.link}>
-      <div className={s.imageConatainer}>
+      <div key={id} className={s.imageConatainer}>
       <img src={image} alt={name} className={s.image}/>
       </div>
       <div className={s.nameContainer}>

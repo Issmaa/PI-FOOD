@@ -14,9 +14,18 @@ describe('Recipe model', () => {
           .then(() => done(new Error('It requires a valid name')))
           .catch(() => done());
       });
+
       it('should work when its a valid name', () => {
         Recipe.create({ name: 'Milanesa a la napolitana' });
       });
+
+      it('should get an error when its an invalid name', (done) => {
+        Recipe.create({name: 9873})
+        .then(() => done(new Error('Name must be a string')))
+        .catch(() => done());
+      });
+
+      
     });
   });
 });

@@ -12,14 +12,14 @@ router.get('',(req, res) => {
     
     if(name) {
         recipeName(name)
-        .then(response => res.status(201).json(response))
-        .catch(error => res.status(404).send(error))
+        .then(response => res.status(200).json(response))
+        .catch(error => res.status(404).send({error: error.message}))
         return 
     }
 
     allRecipes()
-    .then(allRes => res.status(201).json(allRes))
-    .catch(error => res.status(404).send(error))
+    .then(allRes => res.status(200).json(allRes))
+    .catch(error => res.status(404).send({error: error.message}))
 })
 
 
@@ -48,7 +48,7 @@ router.get('/:id',(req,res) => {
                     analyzedInstructions: info.analyzedInstructions
                     // analyzedInstructions: info.analyzedInstructions[0].steps.map(e => e.step)
         }))
-    .then(myRecipe => res.status(201).json(myRecipe))
+    .then(myRecipe => res.status(200).json(myRecipe))
     .catch(error => res.status(404).send(`Ocurrio un error en recipes/:id ${error}`))
     }
 })
@@ -57,11 +57,16 @@ router.post('',(req,res) => {
     const {name,summary,healthScore,analyzedInstructions,diets} = req.body;
     Recipe.create({name,summary,healthScore,analyzedInstructions})
     .then(response => response.addDiets(diets))
-    .then(() => res.status(201).send('Recipe created succesfully'))
+    .then(() => res.status(201).send({msn: 'Recipe created succesfully'}))
     .catch(error => res.status(404).send(`No se pudo crear la receta ${error}`))
 })
 
-
+router.delete('/:id',(req,res) => {
+    const {id} = req.params;
+    Recipe.destroy({where: id})
+    .then(response => res.status(200).send('Se ha eliminado correctamente'))
+    .catch(error => res.send(error))
+})
 
 
 

@@ -25,8 +25,13 @@ export default function rootReducer(state = initialState, action){
         case GET_DETAIL_RECIPE: 
         return  {
             ...state,
-            detailRecipeR: action.payload
+            detailRecipeR: action.payload,
         }
+        case 'CLEAN_DETAIL':
+            return {
+                ...state,
+                detailRecipeR: {}
+            }
         case GET_RECIPE_NAME:
         return {
             ...state,

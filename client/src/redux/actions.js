@@ -74,3 +74,7 @@ export function fromApi(){
 export function fromDataBase(){
     return {type: 'FROM_DATABASE'}
 }
+
+export function clean(){
+    return {type: 'CLEAN_DETAIL'}
+}

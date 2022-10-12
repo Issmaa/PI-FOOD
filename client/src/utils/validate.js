@@ -27,7 +27,7 @@ export function validate(value){
       errors.healthScore = 'El numero debe ser menor a 100';
     }
  
-    if(!value.diets.length) errors.types = 'Debe incluir al menos un tipo de dieta'
+    if(!value.diets.length) errors.diets = 'Debe incluir al menos un tipo de dieta'
  
     return errors;
   }

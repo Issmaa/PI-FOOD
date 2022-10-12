@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import c from './CreateRecipe.module.css';
 import {getDiets, postRecipe} from '../redux/actions.js';
 import { validate } from './../utils/validate';
-function CreateRecipe() {
+function CreateRecipe({setRefresh}) {
   const dispatch = useDispatch();
 
     const [input,setInput] = useState({
@@ -37,13 +37,12 @@ function CreateRecipe() {
           [e.target.name]: e.target.value
         }))
       }
-    
+     
 
-      //Checar esta parte de cuando se selecciona uno igual
       const handlerSelect = (e) => {
         e.preventDefault();
         let myDiets = input.diets;
-        let valueInput = e.target.value.split(',')
+        let valueInput = e.target.value.split('.')
         let exists = myDiets.includes(valueInput[0]);
         if(exists){
           myDiets = [...myDiets]
@@ -55,14 +54,14 @@ function CreateRecipe() {
         else {
           myDiets.push(valueInput[0]);
         }
-        setMyInputDiets([...myInputDiets,valueInput[1]])
+        setMyInputDiets([...myInputDiets, e.target.value])
         setInput({
           ...input,
           diets: myDiets
         })
         setErrors(validate({
           ...input,
-          [e.target.name]: e.target.value
+          diets: myDiets
         }))
       }
 
@@ -87,11 +86,30 @@ function CreateRecipe() {
         }
       }
 
+      // const [dietsSelect, setDietsSelect] = useState([])
+      // function onClose(id) {
+      //   setDietsSelect(d => d.filter(c => c.id !== id));
+      // }
 
+      const handleRemoveDiet = (e) => {
+        e.preventDefault();
+        console.log(e.target.value)
+        console.log(myInputDiets)
+        console.log(input.diets)
+        setInput({
+            ...input,
+            diets: input.diets.filter(diet=> diet !== e.target.value.split('.')[0])
+        })
+        setMyInputDiets(myInputDiets.filter(name => name !== e.target.value))
+        setErrors(validate({
+            ...input,
+            diets: input.diets.filter(diet=> diet !== e.target.value)
+        }))
+    }
   return (
     <div className={c.global}>
       <Link to={'/home'}>
-      <button className={c.btnBack}>Back</button>
+      <button className={c.btnBack} onClick={() => setRefresh(true)}>Back</button>
       </Link>      
       <h2 className={c.title}>Crea tu propia receta</h2>
       <div className={c.cardCreate}>
@@ -99,7 +117,7 @@ function CreateRecipe() {
         <div className={c.inputName}>
           <label className={c.labelStyle}>Name</label>
           <input type={'text'} id={'name'} name={'name'} value={input.name.toLowerCase()} onChange={handleChange} placeholder={'Ingresa un nombre'}></input>
-          {errors.name && (<span>{errors.name}</span>)}
+          {errors.name && (<span className={c.error}>{errors.name}</span>)}
          </div><br/>
 
          <div className={c.inputSummary}>
@@ -107,13 +125,13 @@ function CreateRecipe() {
           {/* <input type={'text'} name={'summary'} value={input.summary} onChange={handleChange} placeholder={'Resumen de la receta'}></input>
           {errors.summary && (<span>{errors.summary}</span>)} */}
           <textarea type={'text'} name={'summary'} value={input.summary} onChange={handleChange} placeholder={'Resumen de la receta...'}></textarea>
-          {errors.summary && (<span>{errors.summary}</span>)}
+          {errors.summary && (<span className={c.error}>{errors.summary}</span>)}
          </div>
 
          <div className={c.inputName}>
           <label className={c.labelStyle}>healthScore</label>
           <input type={'text'} name={'healthScore'} value={input.healthScore} onChange={handleChange} placeholder={'Puntaje de salud'}></input>
-          {errors.healthScore && (<span>{errors.healthScore}</span>)}
+          {errors.healthScore && (<span className={c.error}>{errors.healthScore}</span>)}
          </div>
 
          <div className={c.inputInstructions}>
@@ -121,7 +139,7 @@ function CreateRecipe() {
           {/* <input type={'text'} name={'analyzedInstructions'} value={input.analyzedInstructions} onChange={handleChange} placeholder={'Paso a paso de la receta'}></input>
           {errors.defense && (<span>{errors.defense}</span>)} */}
           <textarea type={'text'} name={'analyzedInstructions'} value={input.analyzedInstructions} onChange={handleChange} placeholder={'Paso a paso...'}></textarea>
-          {errors.defense && (<span>{errors.defense}</span>)}
+          {errors.defense && (<span className={c.error}>{errors.defense}</span>)}
          </div>
          
 
@@ -129,23 +147,34 @@ function CreateRecipe() {
           <select onChange={handlerSelect}>
             <option value={''}> --Selecciona un tipo-- </option>
             {diets && diets.map(e => {
-              return (<option key={e.id} value={e.id + ',' + e.name}>{e.name}</option>)
+              return (<option key={e.id} value={e.id + '.' + e.name}>{e.name}</option>)
               })
             }
           </select>
-          {errors.diets && (<span>{errors.diets}</span>)}
+          {errors.diets && (<span className={c.error}>{errors.diets}</span>)}
         </div><br/>
 
         <div className={c.listType}>
           <ul>
             <label>Tipos seleccionados:</label>
-            <li>
-              {myInputDiets.map(e => e + ',')}
-            </li>
+            {
+            myInputDiets?.map( e=>{ 
+              return(
+              <ul >
+                <li className={c.dietSelected}>
+                <button className={c.closeButton} value={e} onClick={(e)=>handleRemoveDiet(e)}>x</button>
+                {e.split('.')[1]} 
+                </li>
+              </ul>
+            )
+            })
+            }
           </ul>
         </div><br/>
+        <div>
         <div className={c.sumbitBtn}>
-         <input type='submit' className={c.submit}></input>
+         <input type='submit' className={c.submit} value='Crear'></input>
+        </div>
         </div>
       </form>
       </div>
@@ -153,24 +182,4 @@ function CreateRecipe() {
   )
 }
 
-// "analyzedInstructions": [
-//   {
-//   "name": "",
-//   "steps": [
-//   {
-//   "number": 1,
-//   "step": "Remove the cauliflower's tough stem and reserve for another use. Using a food processor, pulse cauliflower florets until they resemble rice or couscous. You should end up with around four cups of \"cauliflower rice.\"",
-//   "ingredients": [
-//   {
-//   "id": 10011135,
-//   "name": "cauliflower florets",
-//   "localizedName": "cauliflower florets",
-//   "image": "cauliflower.jpg"
-//   },
-//   {
-//   "id": 10111135,
-//   "name": "cauliflower rice",
-//   "localizedName": "cauliflower rice",
-//   "image": "cauliflower.jpg"
-//   },
 export default CreateRecipe

@@ -15,6 +15,7 @@ function NavBar({ search, setSearch,handleSearch,setCurrentPage}) {
 
     function handlerTipos(e){
       dispatch(tiposDiets(e.target.value))
+      setCurrentPage(1)
     }
     return (
         <nav className={s.nav}>

@@ -2,7 +2,7 @@ import React,{useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import {useParams,Link} from 'react-router-dom'
 import c from './DetailRecipe.module.css';
-import {detailRecipe} from '../redux/actions.js';
+import {detailRecipe,clean} from '../redux/actions.js';
 import notFound from '../images/notFound.png';
 import Loading from './Loading';
 function DetailRecipe() {
@@ -17,17 +17,19 @@ function DetailRecipe() {
       dispatch(detailRecipe(id))
    },[dispatch,id])
 
-
+   function cleanDetail(){
+    dispatch(clean())
+   }
    if(Object.keys(detailRecipeR).length){
     return (
       <div className={c.globalContainer}>
         <div className={c.btnback}>
         <Link to={'/home'}>
-          <button>Back</button>
+          <button onClick={cleanDetail}>Back</button>
         </Link>
         </div>
         {
-        <div className={c.containerBack}>
+        <div key={c.id} className={c.containerBack}>
         <div className={c.containerCard}>
           <div className={c.imageContainer}>
               <img className={c.image} src={detailRecipeR.image ? detailRecipeR.image : notFound} alt={detailRecipeR.name}/>
@@ -51,7 +53,7 @@ function DetailRecipe() {
               </div>
               <>
               <h4>Summary:</h4>
-              <p className={c.summary}>{detailRecipeR.summary}</p>
+              <p className={c.summary}>{detailRecipeR.resume? detailRecipeR.resume : detailRecipeR.summary.replace(/<[^>]*>?/g, "")}</p>
               </>
               <h4>Ingredients:</h4>
               <div className={c.divIngredients}>

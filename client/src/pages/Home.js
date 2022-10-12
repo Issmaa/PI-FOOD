@@ -1,8 +1,8 @@
 import React from 'react'
-import { useState ,useEffect} from 'react';
+import { useState} from 'react';
 import {useDispatch,useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {getRecipeName,getRecipes} from '../redux/actions.js';
+import {getRecipeName} from '../redux/actions.js';
 import NavBar from '../components/NavBar.js';
 import Cards from '../components/Cards.js'
 import Pagination from '../components/Pagination.js';
@@ -10,14 +10,9 @@ import c from './Home.module.css';
 
 function Home() {
 
-  const [refresh, setRefresh] = useState(false);
     
     const dispatch = useDispatch();
-    useEffect(() => {
-      console.log('Otra vez recipes')
-      dispatch(getRecipes());
-      setRefresh(true);
-    },[dispatch,refresh])
+   
 
   const recipes = useSelector(state => state.recipes)
   //PAGINADO
